@@ -1,0 +1,3 @@
+<?php
+$database = 'cazzinculo.db';
+?>
