@@ -8,7 +8,7 @@ if (!isset ($_GET['url']) or
 include_once ('config.php');
 include_once ('UrlShortner.class.php');
 
-$_GET['url'] = preg_replace ('/^(http|https|ftp):\//', '\1://', $_GET['url']);
+$_GET['url'] = preg_replace ('/^(http|https|ftp):\/([^\/])/', '\1://\2', $_GET['url']);
 
 try
 {
