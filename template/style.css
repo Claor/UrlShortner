@@ -86,5 +86,9 @@ div#error {
 }
 
 input.url-field {
-    width: 100%;
+    width: 398px;
+}
+
+img {
+    border: none;
 }

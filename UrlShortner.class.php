@@ -84,35 +84,12 @@ final class UrlShortner
             $url, $matches);
         $port = (empty ($matches[1]) ? ($protocol == 'ftp' ? 21 : 80) : $matches[1]);
     
-        preg_match ('/^[a-zA-Z]+[a-zA-Z0-9\+\-\.]*:\/\/(?:(?:(?:[A-Za-z0-9;\/\?:@&=\+\$,]|%[0-9A-Fa-f]{2})+@)?(?:(?:(?:[a-zA-Z0-9]+|[a-zA-Z0-9]+[a-zA-Z0-9-]*[a-zA-Z0-9]+)\.)*(?:[a-zA-Z]+|[a-zA-Z]+[a-zA-Z0-9-]*[a-zA-Z0-9]+)\.?|[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})(?::[0-9]+)?)((?:\/(?:[a-zA-Z0-9\-_\.!~\*\'\(\):@&=+&,]|%[0-9A-Fa-f]{2})*(?:;(?:[a-zA-Z0-9\-_\.!~\*\'\(?:\):@&=+&,]|%[0-9A-Fa-f]{2})*)*(?:\/(?:[a-zA-Z0-9\-_\.!~\*\'\(?:\):@&=+&,]|%[0-9A-Fa-f]{2})*(?:;(?:[a-zA-Z0-9\-_\.!~\*\'\(?:\):@&=+&,]|%[0-9A-Fa-f]{2})*)*)*)?(?:\/(?:[a-zA-Z0-9\-_\.!~\*\'\(\):@&=+&,]+|%[0-9A-Fa-f]{2}+)*(?:;(?:[a-zA-Z0-9\-_\.!~\*\'\(\):@&=+&,]|%[0-9A-Fa-f]{2})*)*(?:\/(?:[a-zA-Z0-9\-_\.!~\*\'\(\):@&=+&,]|%[0-9A-Fa-f]{2})*(?:;(?:[a-zA-Z0-9\-_\.!~\*\'\(\):@&=+&,]|%[0-9A-Fa-f]{2})*)*)*)?)/',
-            $url, $matches);
-        $path = explode ('?', $matches[1]);
-        $path = $path[0];
-    
         $sock = fsockopen ($site, $port, $errno, $errstr, 5);
         if ($errno)
-            return $errstr;
+            return "Invalid URL";
     
-        $status = "200";
-    
-        if ($protocol != 'ftp')
-        {
-            fwrite ($sock, "GET {$path} HTTP/1.1\r\nHost: {$site}\r\nConnection: close\r\n\r\n");
-            $head = "";
-            do
-                $head .= fgets ($sock);
-            while (substr (preg_replace ("/[\r\b\a\t\v\y\f]+/", '', $head), -2) != "\n\n");
-            $status = explode ("\r\n", $head);
-            $status = $status[0];
-            $status = explode (" ", $status);
-            $status = $status[1];
-        }
-
         fclose ($sock);
-        if (!in_array ($status[0], array ("2", "3")) or
-            $status == "401")
-            return true;
-        return "Invalid URL";
+        return true;
     }
 
     public function
