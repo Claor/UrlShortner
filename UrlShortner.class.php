@@ -99,8 +99,9 @@ final class UrlShortner
         {
             fwrite ($sock, "GET {$path} HTTP/1.1\r\nHost: {$site}\r\nConnection: close\r\n\r\n");
             $head = "";
-            while (substr ($head, -4) != "\r\n\r\n")
+            do
                 $head .= fgets ($sock);
+            while (substr (preg_replace ("/[\r\b\a\t\v\y\f]+/", '', $head), -2) != "\n\n");
             $status = explode ("\r\n", $head);
             $status = $status[0];
             $status = explode (" ", $status);

@@ -1,14 +1,16 @@
 <?php
 error_reporting (0);
 header ("Content-Type: text/plain");
+include_once ('config.php');
+include_once ('UrlShortner.class.php');
+if (!function_exists ('json_encode'))
+{
+    include_once ('json.php');
+}
+
 if (!isset ($_GET['url']) or
         empty ($_GET['url']))
     die (json_encode (array ("Error" => "No link Detected")));
-
-include_once ('config.php');
-include_once ('UrlShortner.class.php');
-
-$_GET['url'] = preg_replace ('/^(http|https|ftp):\/([^\/])/', '\1://\2', $_GET['url']);
 
 try
 {
