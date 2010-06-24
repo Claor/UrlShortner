@@ -5,6 +5,7 @@ html, body {
 
 body {
     background-color: #FFF;
+    background-image: url(background.gif);
     color: #5F5F5F;
     font-family: Mono, Arial;
     font-size: 12px;
