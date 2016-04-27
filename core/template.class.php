@@ -7,11 +7,11 @@ final class UrlTemplate
     readTemplate ($template)
     {
         $files = array (
-            'skeleton'  => 'template/skeleton.tpl',
-            'index'     => 'template/index.tpl',
-            'generate'  => 'template/generated.tpl',
-            'preview'   => 'template/preview.tpl',
-            'error'     => 'template/error.tpl'
+            'skeleton'  => 'templates/skeleton.tpl',
+            'index'     => 'templates/index.tpl',
+            'generate'  => 'templates/generated.tpl',
+            'preview'   => 'templates/preview.tpl',
+            'error'     => 'templates/error.tpl'
         );
 
         if (!array_key_exists ($template, $files))

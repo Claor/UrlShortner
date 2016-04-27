@@ -1,7 +1,7 @@
 <?php
 error_reporting (0);
-include_once ('UrlShortner.class.php');
-include_once ('UrlTemplate.class.php');
+include_once ('core/shortner.class.php');
+include_once ('core/template.class.php');
 include_once ('config.php');
 
 $template = new UrlTemplate ();
@@ -30,12 +30,12 @@ else if (array_key_exists ("preview", $_GET))
         echo $template->error ($e->getMessage ());
     }
 }
-else if (array_key_exists ("url", $_GET))
+else if (array_key_exists ("url", $_POST))
 {
     try
     {
-        $db = new UrlShortner ($database);
-        echo $template->link ($db->insert ($_GET['url']));
+		$db = new UrlShortner ($database);
+        echo $template->link ($db->insert($_POST['url'],$_POST['key'],$_POST['temp']));
     }
     catch (Exception $e)
     {

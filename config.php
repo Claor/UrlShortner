@@ -1,3 +1,3 @@
 <?php
-$database = 'cazzinculo.db';
+$database = 'links.db';
 ?>
